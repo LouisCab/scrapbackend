@@ -1,7 +1,6 @@
 import { CompanyInfoProvider } from '../../../application/interface/company-info-crawler.interface';
 import { RawElement } from '../../../application/interface/crawler.interface';
-import { Browser } from '../../puppeteer/puppeteer-browser';
-import { SocieteComCrawler } from '../societe-com/societe-com.crawler';
+import { Browser } from '../../browser/puppeteer-browser';
 import { constants } from '../../../constants';
 import { LinkedinCrawler } from './linkedin.crawler';
 
