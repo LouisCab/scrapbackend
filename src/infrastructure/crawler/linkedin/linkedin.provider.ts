@@ -1,9 +1,10 @@
-import { CompanyInfoProvider } from '../../../application/interface/company-info-crawler.interface';
-import { RawElement } from '../../../application/interface/crawler.interface';
+import { CompanyInfoProvider } from '../../../application/interface/company-info-provider.interface';
+import { RawElement } from '../provider';
 import { Browser } from '../../browser/puppeteer-browser';
 import { constants } from '../../../constants';
 import { LinkedinCrawler } from './linkedin.crawler';
-
+import { Injectable } from '@nestjs/common';
+@Injectable()
 export class LinkedinProvider extends CompanyInfoProvider<RawElement[]> {
   constructor(private companyName: string) {
     super();

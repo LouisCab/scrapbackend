@@ -1,8 +1,5 @@
 import * as puppeteer from 'puppeteer';
-import {
-  Crawler,
-  RawElement,
-} from '../../../application/interface/crawler.interface';
+import { Crawler, RawElement } from '../provider';
 
 export class SocieteComCrawler extends Crawler {
   constructor(page: puppeteer.Page) {

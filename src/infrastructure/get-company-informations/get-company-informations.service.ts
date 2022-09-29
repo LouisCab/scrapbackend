@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CompanyInfoProvider } from '../../application/interface/company-info-crawler.interface';
+import { CompanyInfoProvider } from '../../application/interface/company-info-provider.interface';
 import {
   CompanyInfoExtractor,
   ExtractedInformations,
 } from '../../application/interface/company-info-extractor.interface';
-import { RawElement } from '../../application/interface/crawler.interface';
+import { RawElement } from '../crawler/provider';
 import { CompanyInformations } from '../../domain/model/company';
 
 @Injectable()
-export class ScrapService {
+export class GetCompanyInformationService {
   private readonly webCrawler: CompanyInfoProvider<RawElement[]>;
   private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>;
   async getCompanyInformations(
