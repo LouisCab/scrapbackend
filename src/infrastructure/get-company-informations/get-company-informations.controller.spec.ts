@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ScrapCompanyInfoHttpController } from './get-company-informations.controller';
-import { GetCompanyInformationService } from './get-company-informations.service';
+import { GetCompanyInformationsService } from './get-company-informations.service';
 
 describe('AppController', () => {
   let scrapController: ScrapCompanyInfoHttpController;
@@ -8,7 +8,7 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ScrapCompanyInfoHttpController],
-      providers: [GetCompanyInformationService],
+      providers: [GetCompanyInformationsService],
     }).compile();
 
     scrapController = app.get<ScrapCompanyInfoHttpController>(

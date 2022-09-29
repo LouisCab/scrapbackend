@@ -1,18 +1,17 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { CompanyInfoProvider } from './application/interface/company-info-provider.interface';
-import { LinkedinCrawler } from './infrastructure/crawler/linkedin/linkedin.crawler';
-import { SocieteComCrawler } from './infrastructure/crawler/societe-com/societe-com.crawler';
+import { LinkedinProvider } from './infrastructure/provider/linkedin/linkedin.provider';
+import { SocieteComProvider } from './infrastructure/provider/societe-com/societe-com.provider';
 import { ScrapCompanyInfoHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
-import { GetCompanyInformationService } from './infrastructure/get-company-informations/get-company-informations.service';
+import { GetCompanyInformationsService } from './infrastructure/get-company-informations/get-company-informations.service';
 
-const crawlers: FactoryProvider = {
-  provide: GetCompanyInformationService,
-  inject: [SocieteComCrawler, LinkedinCrawler],
-  useFactory: (societeComCrawler, linkedinCrawler) => {
+const getCompanyInformationsService: FactoryProvider = {
+  provide: GetCompanyInformationsService,
+  inject: [LinkedinProvider, SocieteComProvider],
+  useFactory: (societeComProvider, linkedinCrawlerProvider) => {
     return [
-      new CompanyInfoProvider(societeComCrawler),
-      new CompanyInfoProvider(linkedinCrawler),
+      new SocieteComProvider(societeComProvider),
+      new LinkedinProvider(linkedinCrawlerProvider),
     ];
   },
 };
@@ -23,6 +22,6 @@ const crawlers: FactoryProvider = {
     }),
   ],
   controllers: [ScrapCompanyInfoHttpController],
-  providers: [crawlers],
+  providers: [getCompanyInformationsService],
 })
 export class ScrapModule {}

@@ -1,4 +1,4 @@
-import { RawElement } from '../../infrastructure/crawler/provider';
+import { RawElement } from './company-info-provider.interface';
 
 export type ExtractedInformations = {
   [key: string]: string;

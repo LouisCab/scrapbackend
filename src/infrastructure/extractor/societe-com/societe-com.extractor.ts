@@ -1,4 +1,4 @@
-import { RawElement } from '../../crawler/provider';
+import { RawElement } from '../../../application/interface/company-info-provider.interface';
 import { CompanyInformations } from '../../../domain/model/company';
 import { SOCIETE_COM_MAPPING } from './societe-com.mapping';
 

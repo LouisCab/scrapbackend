@@ -1,10 +1,10 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { CompanyInformations } from '../../domain/model/company';
-import { GetCompanyInformationService } from './get-company-informations.service';
+import { GetCompanyInformationsService } from './get-company-informations.service';
 
 @Controller('company')
 export class ScrapCompanyInfoHttpController {
-  constructor(private readonly scrapService: GetCompanyInformationService) {}
+  constructor(private readonly scrapService: GetCompanyInformationsService) {}
 
   @Post('/getCompanyInformations')
   async getCompanyInformations(

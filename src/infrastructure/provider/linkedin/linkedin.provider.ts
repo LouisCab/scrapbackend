@@ -1,5 +1,7 @@
-import { CompanyInfoProvider } from '../../../application/interface/company-info-provider.interface';
-import { RawElement } from '../provider';
+import {
+  CompanyInfoProvider,
+  RawElement,
+} from '../../../application/interface/company-info-provider.interface';
 import { Browser } from '../../browser/puppeteer-browser';
 import { constants } from '../../../constants';
 import { LinkedinCrawler } from './linkedin.crawler';

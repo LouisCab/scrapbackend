@@ -1,5 +1,5 @@
 import * as puppeteer from 'puppeteer';
-export type RawElement = string;
+import { RawElement } from '../../application/interface/company-info-provider.interface';
 
 export class PageRedirectionFailed extends Error {
   constructor(url: string) {
