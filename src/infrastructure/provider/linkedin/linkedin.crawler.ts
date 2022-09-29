@@ -1,6 +1,6 @@
 import * as puppeteer from 'puppeteer';
 import { RawElement } from '../../../application/interface/company-info-provider.interface';
-import { Crawler } from '../provider';
+import { Crawler } from '../crawler';
 
 export class LinkedinCrawler extends Crawler {
   constructor(page: puppeteer.Page) {

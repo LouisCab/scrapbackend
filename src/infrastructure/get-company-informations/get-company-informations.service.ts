@@ -16,8 +16,8 @@ export class GetCompanyInformationsService {
   // private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>;
 
   constructor(
-    private readonly provider: CompanyInfoProvider<RawElement[]>[],
-    private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>[],
+    private readonly providers: CompanyInfoProvider<RawElement[]>[],
+    private readonly extractors: CompanyInfoExtractor<ExtractedInformations>[],
   ) {}
   async getCompanyInformations(
     companyName: string,
@@ -26,8 +26,8 @@ export class GetCompanyInformationsService {
     //   companyName,
     // );
     console.log(companyName);
-    console.log(this.provider);
-    console.log(this.informationExtractor);
+    console.log(this.providers);
+    console.log(this.extractors);
 
     // const companyInformations =
     //   await this.informationExtractor.extractInformation(companyRawElements);
