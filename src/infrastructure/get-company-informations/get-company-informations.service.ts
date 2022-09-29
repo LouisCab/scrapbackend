@@ -12,19 +12,27 @@ import { CompanyInformations } from '../../domain/model/company';
 
 @Injectable()
 export class GetCompanyInformationsService {
-  private readonly provider: CompanyInfoProvider<RawElement[]>;
-  private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>;
+  //private readonly provider: CompanyInfoProvider<RawElement[]>;
+  // private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>;
+
+  constructor(
+    private readonly provider: CompanyInfoProvider<RawElement[]>[],
+    private readonly informationExtractor: CompanyInfoExtractor<ExtractedInformations>[],
+  ) {}
   async getCompanyInformations(
     companyName: string,
   ): Promise<CompanyInformations> {
-    const companyRawElements = await this.provider.getElementCompanyInfo(
-      companyName,
-    );
+    // const companyRawElements = await this.provider.getElementCompanyInfo(
+    //   companyName,
+    // );
+    console.log(companyName);
+    console.log(this.provider);
+    console.log(this.informationExtractor);
 
-    const companyInformations =
-      await this.informationExtractor.extractInformation(companyRawElements);
+    // const companyInformations =
+    //   await this.informationExtractor.extractInformation(companyRawElements);
 
-    return companyInformations;
+    return { test: 'lol' };
   }
 
   getHello(): string {

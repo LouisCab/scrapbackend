@@ -8,16 +8,16 @@ import { LinkedinCrawler } from './linkedin.crawler';
 import { Injectable } from '@nestjs/common';
 @Injectable()
 export class LinkedinProvider extends CompanyInfoProvider<RawElement[]> {
-  constructor(private companyName: string) {
+  constructor() {
     super();
   }
 
-  async getElementCompanyInfo(): Promise<RawElement[]> {
+  async getElementCompanyInfo(companyName: string): Promise<RawElement[]> {
     const browser = new Browser();
     await browser.initBrowser();
 
     const crawler = new LinkedinCrawler(browser.puppeteerPage);
-    await crawler.goto(constants.GOOGLE_SEARCH_LINKEDIN + this.companyName);
+    await crawler.goto(constants.GOOGLE_SEARCH_LINKEDIN + companyName);
     await crawler.consentCookies(constants.GOOGLE_CONSENT);
     await crawler.gotoFirstResult(constants.GOOGLE_FIRST_RESULT);
     const elements = await crawler.getRawElement(constants.LINKEDIN_SELECTOR);

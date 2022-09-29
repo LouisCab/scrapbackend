@@ -4,15 +4,47 @@ import { LinkedinProvider } from './infrastructure/provider/linkedin/linkedin.pr
 import { SocieteComProvider } from './infrastructure/provider/societe-com/societe-com.provider';
 import { ScrapCompanyInfoHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
 import { GetCompanyInformationsService } from './infrastructure/get-company-informations/get-company-informations.service';
+import { SocieteComExtractor } from './infrastructure/extractor/societe-com/societe-com.extractor';
+
+const providers = [
+  {
+    provide: LinkedinProvider,
+    inject: [],
+    useFactory() {
+      return new LinkedinProvider();
+    },
+  },
+  {
+    provide: SocieteComProvider,
+    inject: [],
+    useFactory() {
+      return new SocieteComProvider();
+    },
+  },
+];
+
+const extractors = [
+  {
+    provide: SocieteComExtractor,
+    inject: [],
+    useFactory() {
+      return new SocieteComExtractor();
+    },
+  },
+];
 
 const getCompanyInformationsService: FactoryProvider = {
   provide: GetCompanyInformationsService,
-  inject: [LinkedinProvider, SocieteComProvider],
-  useFactory: (societeComProvider, linkedinCrawlerProvider) => {
-    return [
-      new SocieteComProvider(societeComProvider),
-      new LinkedinProvider(linkedinCrawlerProvider),
-    ];
+  inject: [LinkedinProvider, SocieteComProvider, SocieteComExtractor],
+  useFactory: (
+    linkedin: LinkedinProvider,
+    societeCom: SocieteComProvider,
+    societeComExtractor: SocieteComExtractor,
+  ) => {
+    return new GetCompanyInformationsService(
+      [linkedin, societeCom],
+      [societeComExtractor],
+    );
   },
 };
 @Module({
@@ -22,6 +54,6 @@ const getCompanyInformationsService: FactoryProvider = {
     }),
   ],
   controllers: [ScrapCompanyInfoHttpController],
-  providers: [getCompanyInformationsService],
+  providers: [...providers, ...extractors, getCompanyInformationsService],
 })
 export class ScrapModule {}
