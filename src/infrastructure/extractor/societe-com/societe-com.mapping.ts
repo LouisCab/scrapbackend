@@ -1,6 +1,6 @@
-import { CompanyInformations } from '../../../domain/model/company';
+import { CompanyInformation } from '../../../domain/model/company';
 
-export const SOCIETE_COM_MAPPING: CompanyInformations = {
+export const SOCIETE_COM_MAPPING: CompanyInformation = {
   creationDate: 'Date création entreprise',
   commercialName: 'Noms commerciaux',
   address: 'Adresse postale',
