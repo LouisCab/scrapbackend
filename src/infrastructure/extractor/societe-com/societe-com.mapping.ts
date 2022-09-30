@@ -1,6 +1,6 @@
-import { CompanyInformation } from '../../../domain/model/company';
+import { SocieteComSelector } from '../../../domain/model/selector.type';
 
-export const SOCIETE_COM_MAPPING: CompanyInformation = {
+export const SOCIETE_COM_MAPPING: SocieteComSelector = {
   creationDate: 'Date création entreprise',
   commercialName: 'Noms commerciaux',
   address: 'Adresse postale',
