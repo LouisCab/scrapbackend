@@ -15,7 +15,16 @@ export class Company {
     this.informations = { ...this.informations, ...companyInformation };
   }
 
-  // exists(companyInformation: CompanyInformation) {
-  //   this.informations.keys.
-  // }
+  exists(companyInformation: keyof CompanyInformation) {
+    if (
+      this.informations[companyInformation] &&
+      this.informations[companyInformation] !== null
+    ) {
+      console.warn(
+        `${companyInformation} already exists in ${this.name} informations`,
+      );
+      return true;
+    }
+    return false;
+  }
 }

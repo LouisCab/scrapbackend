@@ -1,5 +1,7 @@
-export type RawElement = string;
+export type RawElement = { [key: string]: string };
 
-export abstract class CompanyInfoProvider<T extends RawElement[]> {
-  abstract getElementCompanyInfo(companyName: string): Promise<T>;
+export abstract class CompanyInfoProvider<CompanyInformation> {
+  abstract getElementCompanyInfo(
+    companyName: string,
+  ): Promise<CompanyInformation>;
 }

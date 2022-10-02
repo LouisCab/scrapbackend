@@ -32,16 +32,23 @@ export abstract class Crawler {
   }
   async goto(url: string) {
     await this.page.goto(url);
+    // await this.page.waitForNavigation();
     if (this.page.url() != url) {
       throw new PageRedirectionFailed(url);
     }
   }
   async consentCookies(selector: string) {
     await this.page.waitForSelector(selector);
+    console.log('SELECTOR WAITED');
     await this.page.click(selector);
   }
   async gotoFirstResult(selector: string) {
+    // await this.page.waitForSelector(selector);
     await this.page.click(selector);
   }
-  abstract getRawElement(identifier: string): Promise<RawElement[]>;
+  abstract getRawElement(
+    key: string,
+    identifier: string,
+    regexExtractor: RegExp,
+  ): Promise<RawElement>;
 }
