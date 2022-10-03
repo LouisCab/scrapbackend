@@ -8,12 +8,7 @@ import {
 } from '../crawler';
 
 export class SocieteComCrawler extends Crawler {
-  constructor(page: puppeteer.Page) {
-    super(page);
-    this.page = page;
-  }
-
-  async extractCompanyInformations(
+  async findExtractCompanyInformations(
     key: string,
     selector: string,
     regexExtractor: RegExp,
@@ -22,6 +17,7 @@ export class SocieteComCrawler extends Crawler {
 
     const element = await this.page.$(selector);
     if (element === null) {
+      await this.closeBrowser();
       throw new ElementNotFoundError(
         `Selector ${selector} is not found on ${this.page.url} on societe.com crawler`,
       );
@@ -31,6 +27,7 @@ export class SocieteComCrawler extends Crawler {
       await element.getProperty('textContent')
     ).jsonValue();
     if (rawData === null) {
+      await this.closeBrowser();
       throw new ContentIsEmptyError(
         `No content for ${selector} on ${this.page.url} on societe.com crawler`,
       );
@@ -38,6 +35,7 @@ export class SocieteComCrawler extends Crawler {
 
     const content = rawData.match(regexExtractor);
     if (content === null) {
+      await this.closeBrowser();
       throw new ExtractingContentFailure(
         `Regex ${regexExtractor} can't extract anything for ${rawData} on societe.com crawler`,
       );

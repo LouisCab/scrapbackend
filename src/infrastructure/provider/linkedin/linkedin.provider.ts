@@ -1,9 +1,10 @@
 import { CompanyInfoProvider } from '../../../application/interface/company-info-provider.interface';
-import { Browser } from '../../browser/puppeteer-browser';
 import { constants } from '../../../constants';
 import { LinkedinCrawler } from './linkedin.crawler';
 import { Injectable } from '@nestjs/common';
 import { CompanyInformation } from '../../../domain/company';
+import { linkedinSelector as linkedinSelectors } from './linkedin.selector';
+
 @Injectable()
 export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
   constructor() {
@@ -13,18 +14,26 @@ export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
   async getElementsCompanyInfomations(
     companyName: string,
   ): Promise<CompanyInformation> {
-    const browser = new Browser();
-    await browser.initBrowser();
+    let elements: CompanyInformation = {};
+    const promises: Promise<CompanyInformation>[] = [];
 
-    const crawler = new LinkedinCrawler(browser.puppeteerPage);
+    const crawler = new LinkedinCrawler();
+    await crawler.initBrowser();
+    console.log(companyName);
     await crawler.goto(constants.GOOGLE_SEARCH_LINKEDIN + companyName);
     await crawler.consentCookies(constants.GOOGLE_CONSENT);
     await crawler.gotoFirstResult(constants.GOOGLE_FIRST_RESULT);
-    // const elements = await crawler.extractCompanyInformations(
-    //   constants.LINKEDIN_SELECTOR,
-    // );
-    const elements = { logo: 'testito' };
-    await browser.closeBrowser();
+
+    for (const [key, selector] of Object.entries(linkedinSelectors)) {
+      promises.push(crawler.findExtractCompanyInformations(key, selector));
+    }
+    const elementsArray = await Promise.all(promises);
+
+    for (const element of elementsArray) {
+      elements = { ...elements, ...element };
+    }
+
+    await crawler.closeBrowser();
 
     return elements;
   }

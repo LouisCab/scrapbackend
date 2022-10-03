@@ -6,7 +6,8 @@ import { FactoryProvider } from '@nestjs/common';
 import { LinkedinProvider } from '../provider/linkedin/linkedin.provider';
 
 describe('AppController', () => {
-  jest.setTimeout(20000);
+  jest.setTimeout(60000);
+  let app: TestingModule;
   let scrapController: ScrapCompanyHttpController;
   const providers = [
     {
@@ -37,7 +38,7 @@ describe('AppController', () => {
   };
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    app = await Test.createTestingModule({
       controllers: [ScrapCompanyHttpController],
       providers: [...providers, getCompanyInformationsService],
     }).compile();
@@ -47,12 +48,14 @@ describe('AppController', () => {
     );
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   describe('e2e test', () => {
     it('should return company for given name"', async () => {
       const companyName = 'gojob';
       const company = await scrapController.getCompanyInformations(companyName);
-      console.log(company);
-      console.log(company.informations);
       expect(company).toBeDefined();
     });
   });

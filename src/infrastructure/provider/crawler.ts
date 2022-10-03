@@ -6,6 +6,23 @@ export class InfrastructureError extends Error {
     super(message);
   }
 }
+export class NoBrowserDefined extends InfrastructureError {
+  constructor() {
+    super('There is no browser launched');
+  }
+}
+
+export class NoPageOpened extends InfrastructureError {
+  constructor() {
+    super("Browser can't open new page");
+  }
+}
+
+export class BrowserNotClosedProperly extends InfrastructureError {
+  constructor() {
+    super('Browser is not closed properly');
+  }
+}
 
 export class PageRedirectionFailed extends InfrastructureError {
   constructor(url: string) {
@@ -43,6 +60,7 @@ export class ExtractingContentFailure extends InfrastructureError {
   }
 }
 export abstract class Crawler {
+  private browser: puppeteer.Browser;
   protected page: puppeteer.Page;
   private elements: Promise<string>;
 
@@ -57,13 +75,36 @@ export abstract class Crawler {
   set setPuppeteerElement(elements: Promise<string>) {
     this.elements = elements;
   }
-  constructor(page: puppeteer.Page) {
+
+  set setPuppeteerPage(page: puppeteer.Page) {
     this.page = page;
+  }
+
+  async initBrowser() {
+    this.browser = await puppeteer.launch({
+      headless: false,
+    });
+    if (!this.browser) {
+      throw new NoBrowserDefined();
+    }
+    this.setPuppeteerPage = await this.browser.newPage();
+    if (!this.puppeteerPage) {
+      await this.browser.close();
+      throw new NoPageOpened();
+    }
+  }
+
+  async closeBrowser() {
+    await this.browser.close();
+    if (this.browser.isConnected()) {
+      await this.browser.close();
+      throw new BrowserNotClosedProperly();
+    }
   }
   async goto(url: string) {
     await this.page.goto(url);
-    // await this.page.waitForNavigation();
     if (this.page.url() != url) {
+      await this.browser.close();
       throw new PageRedirectionFailed(url);
     }
   }
@@ -75,16 +116,20 @@ export abstract class Crawler {
 
   async searchHasNoResult(): Promise<boolean> {
     const element = await this.page.$('#topstuff > div > div > p:nth-child(1)');
-    if (element !== null) return true;
+
+    if (element !== null) {
+      return true;
+    }
     return false;
   }
   async gotoFirstResult(selector: string) {
     if (await this.searchHasNoResult()) {
+      await this.browser.close();
       throw new NoResultForInput();
     }
     await this.page.click(selector);
   }
-  abstract extractCompanyInformations(
+  abstract findExtractCompanyInformations(
     key: string,
     identifier: string,
     regexExtractor: RegExp,

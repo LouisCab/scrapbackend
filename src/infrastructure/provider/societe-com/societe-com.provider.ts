@@ -1,5 +1,4 @@
 import { CompanyInfoProvider } from '../../../application/interface/company-info-provider.interface';
-import { Browser } from '../../browser/puppeteer-browser';
 import { SocieteComCrawler } from './societe-com.crawler';
 import { constants } from '../../../constants';
 import { societeComSelector } from './societe-com.selector';
@@ -18,17 +17,15 @@ export class SocieteComProvider extends CompanyInfoProvider<CompanyInformation> 
     const promises: Promise<CompanyInformation>[] = [];
     const regex = new RegExp(/(([\d-])+\s?|([A-zÀ-ú,']+\s|\w+))+(?<!\n)/g);
 
-    const browser = new Browser();
-    await browser.initBrowser();
-
-    const crawler = new SocieteComCrawler(browser.puppeteerPage);
+    const crawler = new SocieteComCrawler();
+    await crawler.initBrowser();
     await crawler.goto(constants.GOOGLE_SEARCH_SOCIETE_COM + companyName);
     await crawler.consentCookies(constants.GOOGLE_CONSENT);
     await crawler.gotoFirstResult(constants.GOOGLE_FIRST_RESULT);
     await crawler.consentCookies(constants.SOCIETE_COM_CONSENT);
 
     for (const [key, value] of Object.entries(societeComSelector)) {
-      promises.push(crawler.extractCompanyInformations(key, value, regex));
+      promises.push(crawler.findExtractCompanyInformations(key, value, regex));
     }
 
     const elementsArray = await Promise.all(promises);
@@ -37,7 +34,7 @@ export class SocieteComProvider extends CompanyInfoProvider<CompanyInformation> 
       elements = { ...elements, ...element };
     }
 
-    await browser.closeBrowser();
+    await crawler.closeBrowser();
 
     return elements;
   }
