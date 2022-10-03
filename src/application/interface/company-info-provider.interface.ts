@@ -1,7 +1,7 @@
-export type RawElement = { [key: string]: string };
+// export type RawElement = { [key: string]: string };
 
 export abstract class CompanyInfoProvider<CompanyInformation> {
-  abstract getElementCompanyInfo(
+  abstract getElementsCompanyInfomations(
     companyName: string,
   ): Promise<CompanyInformation>;
 }

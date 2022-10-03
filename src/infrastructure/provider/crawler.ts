@@ -1,15 +1,45 @@
 import * as puppeteer from 'puppeteer';
-import { RawElement } from '../../application/interface/company-info-provider.interface';
+import { CompanyInformation } from '../../domain/company';
 
-export class PageRedirectionFailed extends Error {
+export class InfrastructureError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export class PageRedirectionFailed extends InfrastructureError {
   constructor(url: string) {
     super(`Failed to redirect to ${url}`);
   }
 }
 
-export class CookiesAcceptanceFailed extends Error {
+export class NoResultForInput extends InfrastructureError {
+  constructor() {
+    super(`Specified search string has no result avalaible`);
+  }
+}
+
+export class CookiesAcceptanceFailed extends InfrastructureError {
   constructor(selector: string) {
     super(`Failed to accept cookies for ${selector}, hint : maybe add a delay`);
+  }
+}
+
+export class ElementNotFoundError extends InfrastructureError {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export class ContentIsEmptyError extends InfrastructureError {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export class ExtractingContentFailure extends InfrastructureError {
+  constructor(message: string) {
+    super(message);
   }
 }
 export abstract class Crawler {
@@ -42,13 +72,21 @@ export abstract class Crawler {
     console.log('SELECTOR WAITED');
     await this.page.click(selector);
   }
+
+  async searchHasNoResult(): Promise<boolean> {
+    const element = await this.page.$('#topstuff > div > div > p:nth-child(1)');
+    if (element !== null) return true;
+    return false;
+  }
   async gotoFirstResult(selector: string) {
-    // await this.page.waitForSelector(selector);
+    if (await this.searchHasNoResult()) {
+      throw new NoResultForInput();
+    }
     await this.page.click(selector);
   }
-  abstract getRawElement(
+  abstract extractCompanyInformations(
     key: string,
     identifier: string,
     regexExtractor: RegExp,
-  ): Promise<RawElement>;
+  ): Promise<CompanyInformation>;
 }

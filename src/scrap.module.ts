@@ -1,10 +1,9 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { LinkedinProvider } from './infrastructure/provider/linkedin/linkedin.provider';
 import { SocieteComProvider } from './infrastructure/provider/societe-com/societe-com.provider';
-import { ScrapCompanyInfoHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
+import { ScrapCompanyHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
 import { GetCompanyInformationsService } from './infrastructure/get-company-informations/get-company-informations.service';
-import { SocieteComExtractor } from './infrastructure/extractor/societe-com/societe-com.extractor';
+import { LinkedinProvider } from './infrastructure/provider/linkedin/linkedin.provider';
 
 const providers = [
   {
@@ -23,28 +22,11 @@ const providers = [
   },
 ];
 
-const extractors = [
-  {
-    provide: SocieteComExtractor,
-    inject: [],
-    useFactory() {
-      return new SocieteComExtractor();
-    },
-  },
-];
-
 const getCompanyInformationsService: FactoryProvider = {
   provide: GetCompanyInformationsService,
-  inject: [LinkedinProvider, SocieteComProvider, SocieteComExtractor],
-  useFactory: (
-    linkedin: LinkedinProvider,
-    societeCom: SocieteComProvider,
-    societeComExtractor: SocieteComExtractor,
-  ) => {
-    return new GetCompanyInformationsService(
-      [linkedin, societeCom],
-      [societeComExtractor],
-    );
+  inject: [LinkedinProvider, SocieteComProvider],
+  useFactory: (linkedin: LinkedinProvider, societeCom: SocieteComProvider) => {
+    return new GetCompanyInformationsService([linkedin, societeCom]);
   },
 };
 @Module({
@@ -53,7 +35,7 @@ const getCompanyInformationsService: FactoryProvider = {
       envFilePath: ['.env.local', '.env.development'],
     }),
   ],
-  controllers: [ScrapCompanyInfoHttpController],
-  providers: [...providers, ...extractors, getCompanyInformationsService],
+  controllers: [ScrapCompanyHttpController],
+  providers: [...providers, getCompanyInformationsService],
 })
 export class ScrapModule {}

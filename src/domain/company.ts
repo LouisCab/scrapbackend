@@ -1,4 +1,4 @@
-import { SocieteComSelector, LinkedinSelector } from './selector.type';
+import { SocieteComSelector, LinkedinSelector } from './model/selector.type';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 export type CompanyInformation = Optional<
@@ -8,7 +8,7 @@ export type CompanyInformation = Optional<
 export class Company {
   constructor(
     public readonly name: string,
-    public informations: CompanyInformation,
+    public informations: CompanyInformation = {},
   ) {}
 
   add(companyInformation: CompanyInformation) {
