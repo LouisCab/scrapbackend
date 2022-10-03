@@ -110,7 +110,6 @@ export abstract class Crawler {
   }
   async consentCookies(selector: string) {
     await this.page.waitForSelector(selector);
-    console.log('SELECTOR WAITED');
     await this.page.click(selector);
   }
 
@@ -129,7 +128,7 @@ export abstract class Crawler {
     }
     await this.page.click(selector);
   }
-  abstract findExtractCompanyInformations(
+  abstract extractCompanyInformations(
     key: string,
     identifier: string,
     regexExtractor: RegExp,

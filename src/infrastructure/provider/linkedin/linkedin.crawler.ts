@@ -8,11 +8,6 @@ import {
 } from '../crawler';
 
 export class LinkedinCrawler extends Crawler {
-  constructor(page: puppeteer.Page) {
-    super(page);
-    this.page = page;
-  }
-
   async extractCompanyInformations(
     key: string,
     selector: string,

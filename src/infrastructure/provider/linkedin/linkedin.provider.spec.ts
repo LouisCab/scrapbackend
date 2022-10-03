@@ -7,6 +7,6 @@ describe('Linkedin crawler', () => {
 
     expect(elements).toBeDefined();
     console.log(elements);
-    expect(Object.entries(elements).length).toBe(6);
+    expect(elements.length).toBe(6);
   });
 });

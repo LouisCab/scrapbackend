@@ -1,3 +1,5 @@
+export type Selectors = LinkedinSelector | SocieteComSelector;
+
 export type SocieteComSelector = {
   creationDate: TextSelector;
   commercialName: TextSelector;
@@ -13,7 +15,7 @@ export type SocieteComSelector = {
   inseeRegistrationDate: TextSelector;
 };
 
-export type LinkedinSelectors = {
+export type LinkedinSelector = {
   website: TextSelector;
   activitySector: TextSelector;
   companySize: TextSelector;
@@ -23,11 +25,11 @@ export type LinkedinSelectors = {
 };
 
 export type ImageSelector = {
-  htmlMarkupToScrap: string;
+  htmlMarkupAttribute: string;
   location: string;
 };
 
 export type TextSelector = {
-  htmlMarkupToScrap: string;
+  htmlMarkupAttribute: string;
   location: string;
 };

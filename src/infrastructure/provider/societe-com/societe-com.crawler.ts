@@ -8,7 +8,7 @@ import {
 } from '../crawler';
 
 export class SocieteComCrawler extends Crawler {
-  async findExtractCompanyInformations(
+  async extractCompanyInformations(
     key: string,
     selector: string,
     regexExtractor: RegExp,

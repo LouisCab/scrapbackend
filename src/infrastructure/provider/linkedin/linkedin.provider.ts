@@ -1,9 +1,10 @@
-import { CompanyInfoProvider } from '../../../application/interface/company-info-provider.interface';
+import { CompanyInfoProvider } from '../../../application/interface/provider.interface';
 import { constants } from '../../../constants';
 import { LinkedinCrawler } from './linkedin.crawler';
 import { Injectable } from '@nestjs/common';
 import { CompanyInformation } from '../../../domain/company';
-import { linkedinSelector as linkedinSelectors } from './linkedin.selector';
+import { linkedinSelector } from './linkedin.selector';
+import { Extractor } from '../../../domain/information-extractor';
 
 @Injectable()
 export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
@@ -13,28 +14,18 @@ export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
 
   async getElementsCompanyInfomations(
     companyName: string,
-  ): Promise<CompanyInformation> {
-    let elements: CompanyInformation = {};
-    const promises: Promise<CompanyInformation>[] = [];
-
+  ): Promise<CompanyInformation[]> {
     const crawler = new LinkedinCrawler();
     await crawler.initBrowser();
-    console.log(companyName);
     await crawler.goto(constants.GOOGLE_SEARCH_LINKEDIN + companyName);
     await crawler.consentCookies(constants.GOOGLE_CONSENT);
     await crawler.gotoFirstResult(constants.GOOGLE_FIRST_RESULT);
 
-    for (const [key, selector] of Object.entries(linkedinSelectors)) {
-      promises.push(crawler.findExtractCompanyInformations(key, selector));
-    }
-    const elementsArray = await Promise.all(promises);
-
-    for (const element of elementsArray) {
-      elements = { ...elements, ...element };
-    }
+    const extractor = new Extractor(crawler);
+    const informations = await extractor.extractAndTransform(linkedinSelector);
 
     await crawler.closeBrowser();
 
-    return elements;
+    return informations;
   }
 }

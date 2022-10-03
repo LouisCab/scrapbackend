@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { Company, CompanyInformation } from '../../domain/company';
+import { Company } from '../../domain/company';
 import { GetCompanyInformationsService } from './get-company-informations.service';
 
 @Controller('company')

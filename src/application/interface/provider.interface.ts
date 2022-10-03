@@ -3,5 +3,5 @@
 export abstract class CompanyInfoProvider<CompanyInformation> {
   abstract getElementsCompanyInfomations(
     companyName: string,
-  ): Promise<CompanyInformation>;
+  ): Promise<CompanyInformation[]>;
 }

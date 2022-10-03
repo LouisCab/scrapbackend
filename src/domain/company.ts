@@ -8,9 +8,15 @@ export type CompanyInformation = Optional<
 export class Company {
   constructor(
     public readonly name: string,
-    public informations: CompanyInformation = {},
+    private informations: CompanyInformation = {},
   ) {}
 
+  set setCompanyInformations(companyInformations: CompanyInformation) {
+    this.informations = companyInformations;
+  }
+  get companyInformations() {
+    return this.informations;
+  }
   add(companyInformation: CompanyInformation) {
     this.informations = { ...this.informations, ...companyInformation };
   }
@@ -21,7 +27,9 @@ export class Company {
       this.informations[companyInformation] !== null
     ) {
       console.warn(
-        `${companyInformation} already exists in ${this.name} informations`,
+        `${String(companyInformation)} already exists in ${
+          this.name
+        } informations`,
       );
       return true;
     }

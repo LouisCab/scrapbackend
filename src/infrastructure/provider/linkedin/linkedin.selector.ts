@@ -1,37 +1,37 @@
-import { LinkedinSelectors } from '../../../domain/model/selector.type';
+import { LinkedinSelector } from '../../../domain/model/selector.type';
 
-export const linkedinSelector: LinkedinSelectors = {
+export const linkedinSelector: LinkedinSelector = {
   website: {
-    htmlMarkupToScrap: 'innerText',
+    htmlMarkupAttribute: 'href',
     location:
       '#main-content > section > div > section > div > dl > div:nth-child(1) > dd > a',
   },
   activitySector: {
-    htmlMarkupToScrap: 'innerText',
+    htmlMarkupAttribute: 'innerText',
     location:
       '#main-content > section > div > section> div > dl > div:nth-child(2) > dd',
   },
 
   companySize: {
-    htmlMarkupToScrap: 'innerText',
+    htmlMarkupAttribute: 'innerText',
     location:
       '#main-content > section > div > section> div > dl > div:nth-child(3) > dd',
   },
 
   headOfficeLocation: {
-    htmlMarkupToScrap: 'innerText',
+    htmlMarkupAttribute: 'innerText',
     location:
       '#main-content > section > div > section> div > dl > div:nth-child(4) > dd',
   },
 
   employeeOnLinkedin: {
-    htmlMarkupToScrap: 'innerText',
+    htmlMarkupAttribute: 'innerText',
     location:
       '#main-content > section > section > div > div > div > ul > li > div > a',
   },
 
   logo: {
-    htmlMarkupToScrap: 'src',
+    htmlMarkupAttribute: 'src',
     location: '#main-content > section > section > div > div > img',
   },
 };
