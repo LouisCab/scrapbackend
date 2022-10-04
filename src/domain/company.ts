@@ -5,6 +5,7 @@ export type CompanyInformation = Optional<
   SocieteComSelector & LinkedinSelector,
   keyof SocieteComSelector | keyof LinkedinSelector
 >;
+
 export class Company {
   constructor(
     public readonly name: string,

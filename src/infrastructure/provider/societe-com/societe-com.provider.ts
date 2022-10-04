@@ -1,10 +1,10 @@
 import { CompanyInfoProvider } from '../../../application/interface/provider.interface';
 import { SocieteComCrawler } from './societe-com.crawler';
 import { constants } from '../../../constants';
-import { societeComSelector } from './societe-com.selector';
+import { societeComInformationLocator } from './societe-com.selector';
 import { Injectable } from '@nestjs/common';
 import { CompanyInformation } from '../../../domain/company';
-import { Extractor } from '../../../domain/extractor';
+import { Extractor } from '../../../application/information-extractor/information-extractor';
 @Injectable()
 export class SocieteComProvider extends CompanyInfoProvider<CompanyInformation> {
   constructor() {
@@ -23,7 +23,7 @@ export class SocieteComProvider extends CompanyInfoProvider<CompanyInformation> 
 
     const extractor = new Extractor(crawler);
     const informations = await extractor.extractAndTransform(
-      societeComSelector,
+      societeComInformationLocator,
     );
 
     await crawler.closeBrowser();

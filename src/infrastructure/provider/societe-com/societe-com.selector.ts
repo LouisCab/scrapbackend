@@ -1,55 +1,139 @@
-import { SocieteComSelector } from '../../../domain/model/selector.type';
+import { InformationLocator } from '../../../application/information-locator';
+import { InformationReferential } from '../../../application/information-referential';
 
-export const societeComSelector: SocieteComSelector = {
-  creationDate: {
+export const societeComInformationReferential = new InformationReferential([
+  'creationDate',
+  'commercialName',
+  'address',
+  'sirenNumber',
+  'siretNumber',
+  'tvaCode',
+  'rcsCode',
+  'category',
+  'rcsStatus',
+  'inseeStatus',
+  'rcsImmatriculationDate',
+  'inseeRegistrationDate',
+] as const);
+
+export const societeComInformationLocator = new InformationLocator<
+  typeof societeComInformationReferential
+>([
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#rensjur > tbody > tr:nth-child(1) > td.flex.space-between.flex-wrap',
+    property: 'creationDate',
   },
-  commercialName: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(3) > td.break-word',
+    selector: '#rensjur > tbody > tr:nth-child(3) > td.break-word',
+    property: 'commercialName',
   },
-  address: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(5) > td:nth-child(2)',
+    selector: '#rensjur > tbody > tr:nth-child(5) > td:nth-child(2)',
+    property: 'address',
   },
-  sirenNumber: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#siren_number > span',
+    selector: '#siren_number > span',
+    property: 'sirenNumber',
   },
-  siretNumber: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#siret_number > span',
+    selector: '#siret_number > span',
+    property: 'siretNumber',
   },
-  tvaCode: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#tva_number > span',
+    selector: '#tva_number > span',
+    property: 'tvaCode',
   },
-  rcsCode: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(10) > td.numdisplay',
+    selector: '#rensjur > tbody > tr:nth-child(10) > td.numdisplay',
+    property: 'rcsCode',
   },
-  category: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(12) > td:nth-child(2)',
+    selector: '#rensjur > tbody > tr:nth-child(12) > td:nth-child(2)',
+    property: 'category',
   },
-  rcsStatus: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#rensjur > tbody > tr:nth-child(15) > td.flex.space-between.flex-wrap > div > span.TableTextGenerique > span',
+    property: 'rcsStatus',
   },
-  inseeStatus: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#rensjur > tbody > tr:nth-child(16) > td.flex.space-between.flex-wrap > div > span',
+    property: 'inseeStatus',
   },
-  rcsImmatriculationDate: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(17) > td:nth-child(2)',
+    selector: '#rensjur > tbody > tr:nth-child(17) > td:nth-child(2)',
+    property: 'rcsImmatriculationDate',
   },
-  inseeRegistrationDate: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location: '#rensjur > tbody > tr:nth-child(18) > td:nth-child(2)',
+    selector: '#rensjur > tbody > tr:nth-child(18) > td:nth-child(2)',
+    property: 'inseeRegistrationDate',
   },
-};
+]);
+
+// export const societeComSelector: SocieteComSelector = {
+//   creationDate: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector:
+//       '#rensjur > tbody > tr:nth-child(1) > td.flex.space-between.flex-wrap',
+//   },
+//   commercialName: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(3) > td.break-word',
+//   },
+//   address: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(5) > td:nth-child(2)',
+//   },
+//   sirenNumber: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#siren_number > span',
+//   },
+//   siretNumber: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#siret_number > span',
+//   },
+//   tvaCode: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#tva_number > span',
+//   },
+//   rcsCode: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(10) > td.numdisplay',
+//   },
+//   category: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(12) > td:nth-child(2)',
+//   },
+//   rcsStatus: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector:
+//       '#rensjur > tbody > tr:nth-child(15) > td.flex.space-between.flex-wrap > div > span.TableTextGenerique > span',
+//   },
+//   inseeStatus: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector:
+//       '#rensjur > tbody > tr:nth-child(16) > td.flex.space-between.flex-wrap > div > span',
+//   },
+//   rcsImmatriculationDate: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(17) > td:nth-child(2)',
+//   },
+//   inseeRegistrationDate: {
+//     htmlMarkupAttribute: 'innerText',
+//     selector: '#rensjur > tbody > tr:nth-child(18) > td:nth-child(2)',
+//   },
+// };

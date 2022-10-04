@@ -1,6 +1,11 @@
-import { CompanyInformation } from './company';
-import { ImageSelector, Selectors, TextSelector } from './model/selector.type';
-import { Crawler } from '../infrastructure/provider/crawler';
+import { CompanyInformation } from '../../domain/company';
+import { InformationLocator } from '../information-locator';
+import {
+  ImageSelector,
+  Selectors,
+  TextSelector,
+} from '../../domain/model/selector.type';
+import { Crawler } from '../../infrastructure/provider/crawler';
 
 type RawData = {
   key: string;
@@ -8,10 +13,7 @@ type RawData = {
   markupHtml: string;
 };
 export class Extractor {
-  private crawler: Crawler;
-  constructor(crawler: Crawler) {
-    this.crawler = crawler;
-  }
+  constructor(private readonly crawler: Crawler) {}
 
   async extractRawData(
     key: string,
@@ -58,11 +60,12 @@ export class Extractor {
   }
 
   async extractAndTransform(
-    selectors: Selectors,
+    locators: InformationLocator,
   ): Promise<CompanyInformation[]> {
     const informations: CompanyInformation[] = [];
 
-    for (const [key, selector] of Object.entries(selectors)) {
+    for (const locator in locators) {
+      locator.
       const rawData: RawData = await this.extractRawData(key, selector);
       informations.push(this.transformRawData(rawData));
     }

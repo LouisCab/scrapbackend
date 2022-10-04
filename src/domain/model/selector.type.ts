@@ -33,3 +33,14 @@ export type TextSelector = {
   htmlMarkupAttribute: string;
   location: string;
 };
+
+// interface TextSelector2<
+//   R extends InformationReferential = InformationReferential,
+// > extends BaseSelectorDefinition {
+//   htmlMarkupAttribute: string;
+//   property: SelectedInformation<R>;
+// }
+
+// export type SelectorDefinition<
+//   R extends InformationReferential = InformationReferential,
+// > = TextSelector2<R>;

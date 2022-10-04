@@ -1,4 +1,4 @@
-import { Crawler } from '../infrastructure/provider/crawler';
+import { Crawler } from '../../infrastructure/provider/crawler';
 import { Extractor } from './information-extractor';
 
 describe('Extractor test', () => {
@@ -25,7 +25,7 @@ describe('Extractor test', () => {
     `;
     const regex = new RegExp(/[\d|-]+|[A-zÀ-ú]+\s/);
 
-    const crawler = new Crawler();
+    const crawler = new InMemCrawler();
     const extractor = new Extractor(crawler);
     const extract = element.match(regex);
     if (extract != null) expect(extract[0]).toBe('07-09-2015');

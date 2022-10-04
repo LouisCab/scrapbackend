@@ -4,7 +4,7 @@ import { LinkedinCrawler } from './linkedin.crawler';
 import { Injectable } from '@nestjs/common';
 import { CompanyInformation } from '../../../domain/company';
 import { linkedinSelector } from './linkedin.selector';
-import { Extractor } from '../../../domain/information-extractor';
+import { Extractor } from '../../../application/information-extractor/information-extractor';
 
 @Injectable()
 export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
@@ -12,6 +12,7 @@ export class LinkedinProvider extends CompanyInfoProvider<CompanyInformation> {
     super();
   }
 
+  // Ajout du crawler et de l'extractor dans le constructeur de classe
   async getElementsCompanyInfomations(
     companyName: string,
   ): Promise<CompanyInformation[]> {
