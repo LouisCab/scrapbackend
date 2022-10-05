@@ -1,6 +1,6 @@
 import { CompanyInformation } from './company';
 import { ImageSelector, Selectors, TextSelector } from './model/selector.type';
-import { Crawler } from '../infrastructure/information-crawler/information-crawler';
+import { InformationCrawler } from '../infrastructure/information-crawler/information-crawler';
 
 type RawData = {
   key: string;
@@ -8,8 +8,8 @@ type RawData = {
   markupHtml: string;
 };
 export class Extractor {
-  private crawler: Crawler;
-  constructor(crawler: Crawler) {
+  private crawler: InformationCrawler;
+  constructor(crawler: InformationCrawler) {
     this.crawler = crawler;
   }
 

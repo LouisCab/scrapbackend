@@ -59,7 +59,7 @@ export class ExtractingContentFailure extends InfrastructureError {
     super(message);
   }
 }
-export abstract class Crawler {
+export abstract class InformationCrawler {
   private browser: puppeteer.Browser;
   protected page: puppeteer.Page;
   private elements: Promise<string>;

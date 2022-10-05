@@ -1,11 +1,20 @@
-type InformationRubricDefinition = string;
+export type InformationRubricDefinition = {
+  htmlMarkupAttribute: string;
+  selector: string;
+  property: string;
+};
 
-type InformationReferentialDefinition = Readonly<InformationRubricDefinition[]>;
+export type InformationReferentialDefinition = Readonly<
+  InformationRubricDefinition[]
+>;
 
 export class InformationReferential<
   InformationReferentialDefinitions extends InformationReferentialDefinition = InformationReferentialDefinition,
 > {
   constructor(
-    private readonly informationRubrics: InformationReferentialDefinitions,
+    private readonly information: InformationReferentialDefinitions,
   ) {}
+  get informationRubrics() {
+    return this.information;
+  }
 }

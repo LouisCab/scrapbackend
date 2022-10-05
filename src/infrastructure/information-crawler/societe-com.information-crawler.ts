@@ -1,12 +1,12 @@
 import { CompanyInformation } from '../../domain/company';
 import {
-  Crawler,
+  InformationCrawler,
   ElementNotFoundError,
   ContentIsEmptyError,
   ExtractingContentFailure,
 } from './information-crawler';
 
-export class SocieteComCrawler extends Crawler {
+export class SocieteComInformationCrawler extends InformationCrawler {
   async extractCompanyInformations(
     key: string,
     selector: string,

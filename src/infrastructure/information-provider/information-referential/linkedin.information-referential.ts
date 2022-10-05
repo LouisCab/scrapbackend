@@ -1,37 +1,43 @@
-import { LinkedinSelector } from '../../../domain/model/selector.type';
+import { InformationReferential } from '../../../application/information-referential';
 
-export const linkedinSelector: LinkedinSelector = {
-  website: {
+export const linkedinInformationLocator = new InformationReferential([
+  {
     htmlMarkupAttribute: 'href',
-    location:
+    selector:
       '#main-content > section > div > section > div > dl > div:nth-child(1) > dd > a',
+    property: 'website',
   },
-  activitySector: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#main-content > section > div > section> div > dl > div:nth-child(2) > dd',
+    property: 'activitySector',
   },
 
-  companySize: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#main-content > section > div > section> div > dl > div:nth-child(3) > dd',
+    property: 'companySize',
   },
 
-  headOfficeLocation: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#main-content > section > div > section> div > dl > div:nth-child(4) > dd',
+    property: 'headOfficeLocation',
   },
 
-  employeeOnLinkedin: {
+  {
     htmlMarkupAttribute: 'innerText',
-    location:
+    selector:
       '#main-content > section > section > div > div > div > ul > li > div > a',
+    property: 'employeeOnLinkedin',
   },
 
-  logo: {
+  {
     htmlMarkupAttribute: 'src',
-    location: '#main-content > section > section > div > div > img',
+    selector: '#main-content > section > section > div > div > img',
+    property: 'logo',
   },
-};
+]);
