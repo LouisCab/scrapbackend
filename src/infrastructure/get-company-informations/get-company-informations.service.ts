@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CompanyInfoProvider } from '../../application/interface/provider.interface';
+import { InformationProvider } from '../../application/interface/information-provider.interface';
 
 import { Company, CompanyInformation } from '../../domain/company';
 
 @Injectable()
 export class GetCompanyInformationsService {
   constructor(
-    private readonly providers: CompanyInfoProvider<CompanyInformation>[],
+    private readonly providers: InformationProvider<CompanyInformation>[],
   ) {}
   async getInformationsForCompany(companyName: string): Promise<Company> {
     const company = new Company(companyName);

@@ -1,12 +1,12 @@
-import { CompanyInfoProvider } from '../../../application/interface/provider.interface';
+import { InformationProvider } from '../../../application/interface/information-provider.interface';
 import { SocieteComCrawler } from './societe-com.crawler';
 import { constants } from '../../../constants';
-import { societeComSelector } from './societe-com.selector';
+import { societeComSelector } from '../../information-selector/societe-com.information-selector';
 import { Injectable } from '@nestjs/common';
 import { CompanyInformation } from '../../../domain/company';
 import { Extractor } from '../../../domain/extractor';
 @Injectable()
-export class SocieteComProvider extends CompanyInfoProvider<CompanyInformation> {
+export class SocieteComProvider extends InformationProvider<CompanyInformation> {
   constructor() {
     super();
   }

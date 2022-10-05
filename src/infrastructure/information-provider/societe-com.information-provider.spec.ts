@@ -1,5 +1,5 @@
-import { NoResultForInput } from '../crawler';
-import { SocieteComProvider } from './societe-com.provider';
+import { NoResultForInput } from '../information-crawler/information-crawler';
+import { SocieteComProvider } from './societe-com.information-provider';
 
 describe('Societe.com crawler', () => {
   jest.setTimeout(60000);

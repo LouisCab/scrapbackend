@@ -1,4 +1,4 @@
-import { Crawler } from '../infrastructure/provider/crawler';
+import { Crawler } from '../infrastructure/information-crawler/information-crawler';
 import { Extractor } from './information-extractor';
 
 describe('Extractor test', () => {

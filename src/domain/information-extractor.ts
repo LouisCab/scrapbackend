@@ -1,6 +1,6 @@
 import { CompanyInformation } from './company';
 import { ImageSelector, Selectors, TextSelector } from './model/selector.type';
-import { Crawler } from '../infrastructure/provider/crawler';
+import { Crawler } from '../infrastructure/information-crawler/information-crawler';
 
 type RawData = {
   key: string;

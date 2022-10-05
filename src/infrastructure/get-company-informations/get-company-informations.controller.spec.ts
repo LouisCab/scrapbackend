@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SocieteComProvider } from '../provider/societe-com/societe-com.provider';
+import { SocieteComProvider } from '../information-provider/societe-com/societe-com.information-provider';
 import { ScrapCompanyHttpController } from './get-company-informations.controller';
 import { GetCompanyInformationsService } from './get-company-informations.service';
 import { FactoryProvider } from '@nestjs/common';
-import { LinkedinProvider } from '../provider/linkedin/linkedin.provider';
+import { LinkedinProvider } from '../information-provider/linkedin/linkedin.information-provider';
 
 describe('AppController', () => {
   jest.setTimeout(60000);

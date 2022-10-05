@@ -1,9 +1,9 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SocieteComProvider } from './infrastructure/provider/societe-com/societe-com.provider';
+import { SocieteComProvider } from './infrastructure/information-provider/societe-com/societe-com.information-provider';
 import { ScrapCompanyHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
 import { GetCompanyInformationsService } from './infrastructure/get-company-informations/get-company-informations.service';
-import { LinkedinProvider } from './infrastructure/provider/linkedin/linkedin.provider';
+import { LinkedinProvider } from './infrastructure/information-provider/linkedin/linkedin.information-provider';
 
 const providers = [
   {

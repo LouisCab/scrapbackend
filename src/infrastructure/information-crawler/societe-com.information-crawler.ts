@@ -1,11 +1,10 @@
-import * as puppeteer from 'puppeteer';
-import { CompanyInformation } from '../../../domain/company';
+import { CompanyInformation } from '../../domain/company';
 import {
-  ContentIsEmptyError,
   Crawler,
   ElementNotFoundError,
+  ContentIsEmptyError,
   ExtractingContentFailure,
-} from '../crawler';
+} from './information-crawler';
 
 export class SocieteComCrawler extends Crawler {
   async extractCompanyInformations(

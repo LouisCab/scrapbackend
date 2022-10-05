@@ -1,4 +1,4 @@
-import { LinkedinProvider } from './linkedin.provider';
+import { LinkedinProvider } from './linkedin.information-provider';
 
 describe('Linkedin crawler', () => {
   it('should retrieve raw page of specified company', async () => {
