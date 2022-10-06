@@ -1,6 +1,6 @@
 import { InformationReferential } from '../../../application/information-referential';
 
-export const linkedinInformationLocator = new InformationReferential([
+export const linkedinInformationReferential = new InformationReferential([
   {
     htmlMarkupAttribute: 'href',
     selector:

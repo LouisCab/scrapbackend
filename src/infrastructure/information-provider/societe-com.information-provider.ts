@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { InformationReferential } from '../../application/information-referential';
 import { InformationProvider } from '../../application/interface/information-provider/information-provider.interface';
 import { constants } from '../../constants';
 import { CompanyInformation } from '../../domain/company';
 import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
+import { societeComInformationReferential } from './information-referential/societe-com.information-referential';
 import { PuppeteerInformationRefinery } from './information-refinery/puppeteer-information-refinery';
 
 @Injectable()
@@ -13,14 +13,13 @@ export class SocieteComProvider extends InformationProvider<CompanyInformation> 
     private readonly extractor: PuppeteerInformationExtractor,
     private readonly transformer: PuppeteerInformationRefinery,
     private readonly crawler: SocieteComInformationCrawler,
-    private readonly referential: InformationReferential,
   ) {
     super();
   }
 
   async getElementsCompanyInfomations(
     companyName: string,
-  ): Promise<CompanyInformation> {
+  ): Promise<CompanyInformation[]> {
     await this.crawler.initBrowser();
     await this.crawler.goto(constants.GOOGLE_SEARCH_SOCIETE_COM + companyName);
     await this.crawler.consentCookies(constants.GOOGLE_CONSENT);
@@ -28,7 +27,7 @@ export class SocieteComProvider extends InformationProvider<CompanyInformation> 
     await this.crawler.consentCookies(constants.SOCIETE_COM_CONSENT);
 
     const rawElements = await this.extractor.extractRawData(
-      this.referential.informationRubrics,
+      societeComInformationReferential.informationRubrics,
     );
 
     const companyInformations = await this.transformer.transformRawData(

@@ -1,6 +1,6 @@
 import { InformationReferential } from '../../../application/information-referential';
 
-export const societeComInformationLocator = new InformationReferential([
+export const societeComInformationReferential = new InformationReferential([
   {
     htmlMarkupAttribute: 'innerText',
     selector:

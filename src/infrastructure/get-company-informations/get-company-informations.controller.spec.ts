@@ -1,30 +1,91 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SocieteComProvider } from '../information-provider/societe-com/societe-com.information-provider';
 import { ScrapCompanyHttpController } from './get-company-informations.controller';
 import { GetCompanyInformationsService } from './get-company-informations.service';
 import { FactoryProvider } from '@nestjs/common';
-import { LinkedinProvider } from '../information-provider/linkedin/linkedin.information-provider';
+import { LinkedinProvider } from '../information-provider/linkedin.information-provider';
+import { SocieteComProvider } from '../information-provider/societe-com.information-provider';
+import { LinkedinInformationCrawler } from '../information-crawler/linkedin.information-crawler';
+import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
+import { PuppeteerInformationExtractor } from '../information-provider/information-extractor/puppeter.information-extractor';
+import { PuppeteerInformationRefinery } from '../information-provider/information-refinery/puppeteer-information-refinery';
 
 describe('AppController', () => {
   jest.setTimeout(60000);
   let app: TestingModule;
   let scrapController: ScrapCompanyHttpController;
-  const providers = [
+
+  const crawlers = [
     {
-      provide: LinkedinProvider,
-      inject: [],
-      useFactory() {
-        return new LinkedinProvider();
-      },
+      provide: LinkedinInformationCrawler,
+      useClass: LinkedinInformationCrawler,
     },
     {
-      provide: SocieteComProvider,
-      inject: [],
-      useFactory() {
-        return new SocieteComProvider();
-      },
+      provide: SocieteComInformationCrawler,
+      useClass: SocieteComInformationCrawler,
     },
   ];
+
+  const refineries = [
+    {
+      provide: PuppeteerInformationRefinery,
+      useClass: PuppeteerInformationRefinery,
+    },
+  ];
+
+  const extractorLinkedin = {
+    provide: PuppeteerInformationExtractor,
+    inject: [LinkedinInformationCrawler],
+    useFactory: (crawler: LinkedinInformationCrawler) => {
+      return new PuppeteerInformationExtractor(crawler);
+    },
+  };
+
+  const extractorSocieteCom = {
+    provide: PuppeteerInformationExtractor,
+    inject: [SocieteComInformationCrawler],
+    useFactory: (crawler: SocieteComInformationCrawler) => {
+      return new PuppeteerInformationExtractor(crawler);
+    },
+  };
+  const linkedinProvider = {
+    provide: LinkedinProvider,
+    inject: [
+      PuppeteerInformationExtractor,
+      PuppeteerInformationRefinery,
+      LinkedinInformationCrawler,
+    ],
+    useFactory: (
+      _extractor: PuppeteerInformationExtractor,
+      refinery: PuppeteerInformationRefinery,
+      crawler: LinkedinInformationCrawler,
+    ) => {
+      return new LinkedinProvider(
+        new PuppeteerInformationExtractor(crawler),
+        refinery,
+        crawler,
+      );
+    },
+  };
+
+  const societeComProvider = {
+    provide: SocieteComProvider,
+    inject: [
+      PuppeteerInformationExtractor,
+      PuppeteerInformationRefinery,
+      SocieteComInformationCrawler,
+    ],
+    useFactory: (
+      _extractor: PuppeteerInformationExtractor,
+      refinery: PuppeteerInformationRefinery,
+      crawler: LinkedinInformationCrawler,
+    ) => {
+      return new SocieteComProvider(
+        new PuppeteerInformationExtractor(crawler),
+        refinery,
+        crawler,
+      );
+    },
+  };
 
   const getCompanyInformationsService: FactoryProvider = {
     provide: GetCompanyInformationsService,
@@ -40,7 +101,15 @@ describe('AppController', () => {
   beforeEach(async () => {
     app = await Test.createTestingModule({
       controllers: [ScrapCompanyHttpController],
-      providers: [...providers, getCompanyInformationsService],
+      providers: [
+        ...crawlers,
+        ...refineries,
+        extractorLinkedin,
+        extractorSocieteCom,
+        linkedinProvider,
+        societeComProvider,
+        getCompanyInformationsService,
+      ],
     }).compile();
 
     scrapController = app.get<ScrapCompanyHttpController>(
@@ -54,8 +123,8 @@ describe('AppController', () => {
 
   describe('e2e test', () => {
     it('should return company for given name"', async () => {
-      const companyName = 'gojob';
-      const company = await scrapController.getCompanyInformations(companyName);
+      const req = { companyName: 'gojob' };
+      const company = await scrapController.getCompanyInformations(req);
       expect(company).toBeDefined();
     });
   });
