@@ -15,7 +15,7 @@ class NoMatchingHtmlMarkupAttribute extends InfrastructureError {
   }
 }
 
-export class PuppeteerInformationRefinery implements InformationRefinery {
+export class InMemInformationRefinery implements InformationRefinery {
   transformRawData(
     rawData: InformationRubricValueDefinition,
   ): CompanyInformation[] {

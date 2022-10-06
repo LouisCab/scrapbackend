@@ -26,7 +26,7 @@ export class LinkedinProvider extends InformationProvider<CompanyInformation> {
     await this.crawler.gotoFirstResult(constants.GOOGLE_FIRST_RESULT);
 
     const rawElements = await this.extractor.extractRawData(
-      linkedinInformationReferential.informationRubrics,
+      linkedinInformationReferential,
     );
 
     const companyInformations = await this.transformer.transformRawData(

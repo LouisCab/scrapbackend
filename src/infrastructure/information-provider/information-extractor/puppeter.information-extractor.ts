@@ -1,15 +1,9 @@
 import {
+  InformationExtractor,
   InformationReferentialDefinition,
-  InformationRubricDefinition,
-} from '../../../application/information-referential';
-import { InformationExtractor } from '../../../application/interface/information-provider/information-locator/information-extractor.interface';
+  InformationRubricValueDefinition,
+} from '../../../application/interface/information-provider/information-extractor/information-extractor.interface';
 import { InformationCrawler } from '../../information-crawler/information-crawler';
-
-interface InformationRubricValue extends InformationRubricDefinition {
-  rawValue: string;
-}
-
-export type InformationRubricValueDefinition = InformationRubricValue[];
 
 export class PuppeteerInformationExtractor implements InformationExtractor {
   constructor(private readonly crawler: InformationCrawler) {}

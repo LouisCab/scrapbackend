@@ -1,6 +1,4 @@
-import { InformationReferential } from '../../../application/information-referential';
-
-export const societeComInformationReferential = new InformationReferential([
+export const societeComInformationReferential = [
   {
     htmlMarkupAttribute: 'innerText',
     selector:
@@ -64,4 +62,4 @@ export const societeComInformationReferential = new InformationReferential([
     selector: '#rensjur > tbody > tr:nth-child(18) > td:nth-child(2)',
     property: 'inseeRegistrationDate',
   },
-]);
+] as const;

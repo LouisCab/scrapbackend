@@ -1,10 +1,23 @@
-import { SocieteComSelector, LinkedinSelector } from './model/selector.type';
+import { societeComInformationReferential } from '../infrastructure/information-provider/information-referential/societe-com.information-referential';
+import { linkedinInformationReferential } from '../infrastructure/information-provider/information-referential/linkedin.information-referential';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-export type CompanyInformation = Optional<
-  SocieteComSelector & LinkedinSelector,
-  keyof SocieteComSelector | keyof LinkedinSelector
+
+const mappingReferential = [
+  ...societeComInformationReferential,
+  ...linkedinInformationReferential,
+];
+
+type MappingReferential = Record<
+  typeof mappingReferential[number]['property'],
+  string
 >;
+
+export type CompanyInformation = Optional<
+  MappingReferential,
+  keyof MappingReferential
+>;
+
 export class Company {
   constructor(
     public readonly name: string,

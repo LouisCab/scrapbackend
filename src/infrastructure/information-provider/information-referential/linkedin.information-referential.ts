@@ -1,6 +1,4 @@
-import { InformationReferential } from '../../../application/information-referential';
-
-export const linkedinInformationReferential = new InformationReferential([
+export const linkedinInformationReferential = [
   {
     htmlMarkupAttribute: 'href',
     selector:
@@ -40,4 +38,4 @@ export const linkedinInformationReferential = new InformationReferential([
     selector: '#main-content > section > section > div > div > img',
     property: 'logo',
   },
-]);
+] as const;

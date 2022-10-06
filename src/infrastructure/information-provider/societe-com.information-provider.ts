@@ -27,7 +27,7 @@ export class SocieteComProvider extends InformationProvider<CompanyInformation> 
     await this.crawler.consentCookies(constants.SOCIETE_COM_CONSENT);
 
     const rawElements = await this.extractor.extractRawData(
-      societeComInformationReferential.informationRubrics,
+      societeComInformationReferential,
     );
 
     const companyInformations = await this.transformer.transformRawData(

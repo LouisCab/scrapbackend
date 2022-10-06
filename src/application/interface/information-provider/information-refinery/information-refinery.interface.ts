@@ -1,8 +1,8 @@
 import { CompanyInformation } from '../../../../domain/company';
-import { InformationRubricValueDefinition } from '../../../../infrastructure/information-provider/information-extractor/puppeter.information-extractor';
+import { InformationRubricValueDefinition } from '../information-extractor/information-extractor.interface';
 
 export interface InformationRefinery {
   transformRawData(
     rawData: InformationRubricValueDefinition,
-  ): CompanyInformation;
+  ): CompanyInformation[];
 }
