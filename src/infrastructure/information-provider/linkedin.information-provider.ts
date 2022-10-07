@@ -3,7 +3,7 @@ import { InformationProvider } from '../../application/interface/information-pro
 import { constants } from '../../constants';
 import { CompanyInformation } from '../../domain/company';
 import { CompanyNotFound } from './fake.information-provider';
-import { LinkedinInformationCrawler } from './information-crawler/linkedin.information-crawler';
+import { PuppeteerInformationCrawler } from './information-crawler/puppeteer.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { linkedinInformationReferential } from './information-referential/linkedin.information-referential';
 import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
@@ -13,7 +13,7 @@ export class LinkedinProvider extends InformationProvider<CompanyInformation> {
   constructor(
     private readonly extractor: PuppeteerInformationExtractor,
     private readonly transformer: PuppeteerInformationRefinery,
-    private readonly crawler: LinkedinInformationCrawler,
+    private readonly crawler: PuppeteerInformationCrawler,
   ) {
     super();
   }

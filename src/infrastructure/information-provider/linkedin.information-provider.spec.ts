@@ -1,6 +1,5 @@
-import { LinkedinInformationCrawler } from './information-crawler/linkedin.information-crawler';
+import { PuppeteerInformationCrawler } from './information-crawler/puppeteer.information-crawler';
 import { NoResultForInput } from './information-crawler/puppeteer.information-crawler';
-import { SocieteComInformationCrawler } from './information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
 import { LinkedinProvider } from './linkedin.information-provider';
@@ -8,11 +7,11 @@ import { LinkedinProvider } from './linkedin.information-provider';
 let provider: LinkedinProvider;
 let extractor: PuppeteerInformationExtractor;
 let transformer: PuppeteerInformationRefinery;
-let crawler: SocieteComInformationCrawler;
+let crawler: PuppeteerInformationCrawler;
 
 beforeEach(() => {
   transformer = new PuppeteerInformationRefinery();
-  crawler = new LinkedinInformationCrawler();
+  crawler = new PuppeteerInformationCrawler();
   extractor = new PuppeteerInformationExtractor(crawler);
   provider = new LinkedinProvider(extractor, transformer, crawler);
 });

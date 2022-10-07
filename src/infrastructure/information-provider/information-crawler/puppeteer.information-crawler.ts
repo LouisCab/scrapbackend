@@ -1,6 +1,4 @@
 import * as puppeteer from 'puppeteer';
-import { CompanyInformation } from '../../../domain/company';
-import { InformationCrawler } from '../../../application/interface/information-provider/information-crawler/information-crawler.abstract';
 
 export class InfrastructureError extends Error {
   constructor(message: string) {
@@ -39,7 +37,7 @@ export class NoResultForInput extends InfrastructureError {
 
 export class CookiesAcceptanceFailed extends InfrastructureError {
   constructor(selector: string) {
-    super(`Failed to accept cookies for ${selector}, hint : maybe add a delay`);
+    super(`Failed to accept cookies for ${selector}`);
   }
 }
 
@@ -60,7 +58,8 @@ export class ExtractingContentFailure extends InfrastructureError {
     super(message);
   }
 }
-export abstract class PuppeteerInformationCrawler extends InformationCrawler {
+export class PuppeteerInformationCrawler {
+  // extends InformationCrawler
   private browser: puppeteer.Browser;
   protected page: puppeteer.Page;
   private elements: Promise<string>;
@@ -88,8 +87,7 @@ export abstract class PuppeteerInformationCrawler extends InformationCrawler {
     if (!this.browser) {
       throw new NoBrowserDefined();
     }
-    // TODO set user agent for headless
-    // this.setPuppeteerPage = await this.browser.newPage();
+
     const puppeteerPage = await this.browser.newPage();
     // await puppeteerPage.setCacheEnabled(false);
     this.setPuppeteerPage = puppeteerPage;
@@ -136,9 +134,4 @@ export abstract class PuppeteerInformationCrawler extends InformationCrawler {
     }
     await this.page.click(selector);
   }
-  abstract extractCompanyInformations(
-    key: string,
-    identifier: string,
-    regexExtractor: RegExp,
-  ): Promise<CompanyInformation>;
 }

@@ -1,5 +1,7 @@
-import { NoResultForInput } from './information-crawler/puppeteer.information-crawler';
-import { SocieteComInformationCrawler } from './information-crawler/societe-com.information-crawler';
+import {
+  NoResultForInput,
+  PuppeteerInformationCrawler,
+} from './information-crawler/puppeteer.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
 import { SocieteComProvider } from './societe-com.information-provider';
@@ -10,11 +12,11 @@ describe('Societe.com crawler', () => {
   let provider: SocieteComProvider;
   let extractor: PuppeteerInformationExtractor;
   let transformer: PuppeteerInformationRefinery;
-  let crawler: SocieteComInformationCrawler;
+  let crawler: PuppeteerInformationCrawler;
 
   beforeEach(() => {
     transformer = new PuppeteerInformationRefinery();
-    crawler = new SocieteComInformationCrawler();
+    crawler = new PuppeteerInformationCrawler();
     extractor = new PuppeteerInformationExtractor(crawler);
 
     provider = new SocieteComProvider(extractor, transformer, crawler);

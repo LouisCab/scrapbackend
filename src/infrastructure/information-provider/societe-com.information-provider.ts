@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InformationProvider } from '../../application/interface/information-provider/information-provider.abstract';
 import { constants } from '../../constants';
 import { CompanyInformation } from '../../domain/company';
-import { SocieteComInformationCrawler } from './information-crawler/societe-com.information-crawler';
+import { PuppeteerInformationCrawler } from './information-crawler/puppeteer.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { societeComInformationReferential } from './information-referential/societe-com.information-referential';
 import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
@@ -12,7 +12,7 @@ export class SocieteComProvider extends InformationProvider<CompanyInformation> 
   constructor(
     private readonly extractor: PuppeteerInformationExtractor,
     private readonly transformer: PuppeteerInformationRefinery,
-    private readonly crawler: SocieteComInformationCrawler,
+    private readonly crawler: PuppeteerInformationCrawler,
   ) {
     super();
   }

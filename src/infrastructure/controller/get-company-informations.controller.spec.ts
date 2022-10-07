@@ -1,8 +1,7 @@
 import { FactoryProvider } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
-import { LinkedinInformationCrawler } from '../information-provider/information-crawler/linkedin.information-crawler';
-import { SocieteComInformationCrawler } from '../information-provider/information-crawler/societe-com.information-crawler';
+import { PuppeteerInformationCrawler } from '../information-provider/information-crawler/puppeteer.information-crawler';
 import { PuppeteerInformationExtractor } from '../information-provider/information-extractor/puppeter.information-extractor';
 import { PuppeteerInformationRefinery } from '../information-provider/information-refinery/puppeteer.information-refinery';
 import { LinkedinProvider } from '../information-provider/linkedin.information-provider';
@@ -12,16 +11,12 @@ import { GetCompanyInformationsController } from './get-company-informations.con
 describe('AppController', () => {
   jest.setTimeout(60000);
   let app: TestingModule;
-  let scrapController: GetCompanyInformationsController;
+  let controller: GetCompanyInformationsController;
 
   const crawlers = [
     {
-      provide: LinkedinInformationCrawler,
-      useClass: LinkedinInformationCrawler,
-    },
-    {
-      provide: SocieteComInformationCrawler,
-      useClass: SocieteComInformationCrawler,
+      provide: PuppeteerInformationCrawler,
+      useClass: PuppeteerInformationCrawler,
     },
   ];
 
@@ -34,16 +29,16 @@ describe('AppController', () => {
 
   const extractorLinkedin = {
     provide: PuppeteerInformationExtractor,
-    inject: [LinkedinInformationCrawler],
-    useFactory: (crawler: LinkedinInformationCrawler) => {
+    inject: [PuppeteerInformationCrawler],
+    useFactory: (crawler: PuppeteerInformationCrawler) => {
       return new PuppeteerInformationExtractor(crawler);
     },
   };
 
   const extractorSocieteCom = {
     provide: PuppeteerInformationExtractor,
-    inject: [SocieteComInformationCrawler],
-    useFactory: (crawler: SocieteComInformationCrawler) => {
+    inject: [PuppeteerInformationCrawler],
+    useFactory: (crawler: PuppeteerInformationCrawler) => {
       return new PuppeteerInformationExtractor(crawler);
     },
   };
@@ -52,12 +47,12 @@ describe('AppController', () => {
     inject: [
       PuppeteerInformationExtractor,
       PuppeteerInformationRefinery,
-      LinkedinInformationCrawler,
+      PuppeteerInformationCrawler,
     ],
     useFactory: (
       _extractor: PuppeteerInformationExtractor,
       refinery: PuppeteerInformationRefinery,
-      crawler: LinkedinInformationCrawler,
+      crawler: PuppeteerInformationCrawler,
     ) => {
       return new LinkedinProvider(
         new PuppeteerInformationExtractor(crawler),
@@ -72,12 +67,12 @@ describe('AppController', () => {
     inject: [
       PuppeteerInformationExtractor,
       PuppeteerInformationRefinery,
-      SocieteComInformationCrawler,
+      PuppeteerInformationCrawler,
     ],
     useFactory: (
       _extractor: PuppeteerInformationExtractor,
       refinery: PuppeteerInformationRefinery,
-      crawler: LinkedinInformationCrawler,
+      crawler: PuppeteerInformationCrawler,
     ) => {
       return new SocieteComProvider(
         new PuppeteerInformationExtractor(crawler),
@@ -112,7 +107,7 @@ describe('AppController', () => {
       ],
     }).compile();
 
-    scrapController = app.get<GetCompanyInformationsController>(
+    controller = app.get<GetCompanyInformationsController>(
       GetCompanyInformationsController,
     );
   });
@@ -124,7 +119,7 @@ describe('AppController', () => {
   describe('e2e test', () => {
     it('should return company for given name"', async () => {
       const req = { companyName: 'gojob' };
-      const company = await scrapController.getCompanyInformations(req);
+      const company = await controller.getCompanyInformations(req);
       expect(company).toBeDefined();
     });
   });

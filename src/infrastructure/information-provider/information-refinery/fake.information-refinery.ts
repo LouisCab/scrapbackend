@@ -9,12 +9,6 @@ class ContentIsEmptyError extends InfrastructureError {
   }
 }
 
-class NoMatchingHtmlMarkupAttribute extends InfrastructureError {
-  constructor(message: string) {
-    super(message);
-  }
-}
-
 export class FakeInformationRefinery implements InformationRefinery {
   transformRawData(
     rawData: InformationRubricValueDefinition,
