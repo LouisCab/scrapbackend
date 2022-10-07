@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InformationProvider } from '../../application/interface/information-provider/information-provider.abstract';
 import { constants } from '../../constants';
 import { CompanyInformation } from '../../domain/company';
+import { CompanyNotFound } from './fake.information-provider';
 import { LinkedinInformationCrawler } from './information-crawler/linkedin.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { linkedinInformationReferential } from './information-referential/linkedin.information-referential';
@@ -32,9 +33,13 @@ export class LinkedinProvider extends InformationProvider<CompanyInformation> {
     const companyInformations = await this.transformer.transformRawData(
       rawElements,
     );
+    if (!companyInformations || !companyInformations.values()) {
+      throw new CompanyNotFound(
+        `Company ${companyName} not found for linkedin provider`,
+      );
+    }
 
     await this.crawler.closeBrowser();
-
     return companyInformations;
   }
 }

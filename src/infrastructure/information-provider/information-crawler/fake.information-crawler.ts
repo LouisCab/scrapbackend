@@ -1,7 +1,7 @@
+import { InformationCrawler } from '../../../application/interface/information-provider/information-crawler/information-crawler.abstract';
 import { CompanyInformation } from '../../../domain/company';
-import { PuppeteerInformationCrawler } from './puppeteer.information-crawler';
 
-export class FakeInformationCrawler extends PuppeteerInformationCrawler {
+export class FakeInformationCrawler extends InformationCrawler {
   async extractCompanyInformations(
     key: string,
     selector: string,

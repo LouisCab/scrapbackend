@@ -42,15 +42,11 @@ const extractorSocieteCom = {
     return new PuppeteerInformationExtractor(crawler);
   },
 };
+
 const linkedinProvider = {
   provide: LinkedinProvider,
-  inject: [
-    PuppeteerInformationExtractor,
-    PuppeteerInformationRefinery,
-    LinkedinInformationCrawler,
-  ],
+  inject: [PuppeteerInformationRefinery, LinkedinInformationCrawler],
   useFactory: (
-    _extractor: PuppeteerInformationExtractor,
     refinery: PuppeteerInformationRefinery,
     crawler: LinkedinInformationCrawler,
   ) => {

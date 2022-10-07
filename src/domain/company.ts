@@ -33,19 +33,4 @@ export class Company {
   add(companyInformation: CompanyInformation) {
     this.informations = { ...this.informations, ...companyInformation };
   }
-
-  exists(companyInformation: keyof CompanyInformation) {
-    if (
-      this.informations[companyInformation] &&
-      this.informations[companyInformation] !== null
-    ) {
-      console.warn(
-        `${String(companyInformation)} already exists in ${
-          this.name
-        } informations`,
-      );
-      return true;
-    }
-    return false;
-  }
 }

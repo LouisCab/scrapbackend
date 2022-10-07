@@ -17,11 +17,7 @@ export class GetCompanyInformationsService {
       );
 
       for (const information of elements) {
-        for (const [key, value] of Object.entries(information)) {
-          if (!company.exists(key as keyof CompanyInformation)) {
-            company.add({ [key]: value });
-          }
-        }
+        company.add(information);
       }
     }
     return company;

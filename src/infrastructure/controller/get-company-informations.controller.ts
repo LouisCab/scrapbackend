@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { Company } from '../../domain/company';
 import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
 

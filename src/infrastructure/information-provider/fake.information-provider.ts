@@ -1,21 +1,25 @@
 import { InformationProvider } from '../../application/interface/information-provider/information-provider.abstract';
 import { CompanyInformation } from '../../domain/company';
-import { FakeInformationCrawler } from './information-crawler/fake.information-crawler';
-import { FakeInformationExtractor } from './information-extractor/fake.information-extractor';
-import { FakeInformationRefinery } from './information-refinery/fake.information-refinery';
-
+import { InfrastructureError } from './information-crawler/puppeteer.information-crawler';
+export class CompanyNotFound extends InfrastructureError {
+  constructor(message: string) {
+    super(message);
+  }
+}
 export class FakeInformationProvider extends InformationProvider<CompanyInformation> {
-  constructor(
-    private readonly extractor: FakeInformationExtractor,
-    private readonly transformer: FakeInformationRefinery,
-    private readonly crawler: FakeInformationCrawler,
-  ) {
-    super();
+  private informations = new Map<string, CompanyInformation[]>();
+  setInformation(companyName: string, informations: CompanyInformation[]) {
+    this.informations.set(companyName, informations);
   }
 
-  getElementsCompanyInfomations(
+  async getElementsCompanyInfomations(
     companyName: string,
   ): Promise<CompanyInformation[]> {
-    throw new Error('not implemented yet');
+    const companyInformations = this.informations.get(companyName);
+    if (!companyInformations || !companyInformations.values()) {
+      throw new CompanyNotFound('Company not found');
+    }
+
+    return companyInformations;
   }
 }

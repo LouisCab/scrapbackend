@@ -2,6 +2,7 @@ export type InformationRubricDefinition = {
   htmlMarkupAttribute: string;
   selector: string;
   property: string;
+  extractMethod?: RegExp;
 };
 
 export interface InformationRubricValue extends InformationRubricDefinition {

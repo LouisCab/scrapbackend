@@ -9,46 +9,29 @@ class ContentIsEmptyError extends InfrastructureError {
   }
 }
 
-class NoMatchingHtmlMarkupAttribute extends InfrastructureError {
-  constructor(message: string) {
-    super(message);
-  }
-}
-
 export class PuppeteerInformationRefinery implements InformationRefinery {
   transformRawData(
     rawData: InformationRubricValueDefinition,
   ): CompanyInformation[] {
-    const regex = new RegExp(/(([\d-])+\s?|([A-zÀ-ú,']+\s|\w+))+(?<!\n)/g);
-    let content: string;
     const companyInformations: CompanyInformation[] = [];
 
     for (const rubric of rawData) {
-      switch (rubric.htmlMarkupAttribute) {
-        case 'innerText':
-          const regexArraycontent = rubric.rawValue.match(regex);
-          if (regexArraycontent === null) {
-            throw new ContentIsEmptyError(
-              `Cannot refine ${rubric.rawValue}, content is empty.`,
-            );
-          }
-          content = regexArraycontent[0];
-          break;
-        case 'src':
-          console.log('raw value : ', rubric.rawValue);
-          content = rubric.rawValue;
-          console.log('content : ', content);
-          break;
-        case 'href':
-          content = rubric.rawValue;
-          break;
-        default:
-          throw new NoMatchingHtmlMarkupAttribute(
-            `${rubric.htmlMarkupAttribute} is not referenced`,
+      let companyInformation: CompanyInformation = {};
+      if (rubric.extractMethod) {
+        const content = rubric.rawValue.match(rubric.extractMethod);
+        if (content === null) {
+          throw new ContentIsEmptyError(
+            `Cannot refine ${rubric.rawValue}, content is empty.`,
           );
-          break;
+        }
+        companyInformation = {
+          [rubric.property]: content[0],
+        };
+      } else {
+        companyInformation = { [rubric.property]: rubric.rawValue };
       }
-      companyInformations.push({ [rubric.property]: content });
+
+      companyInformations.push(companyInformation);
     }
     return companyInformations;
   }

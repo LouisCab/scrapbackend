@@ -4,6 +4,7 @@ export const societeComInformationReferential = [
     selector:
       '#rensjur > tbody > tr:nth-child(1) > td.flex.space-between.flex-wrap',
     property: 'creationDate',
+    extractMethod: /([\d|-]+)/,
   },
   {
     htmlMarkupAttribute: 'innerText',

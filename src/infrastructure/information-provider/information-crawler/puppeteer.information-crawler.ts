@@ -83,12 +83,19 @@ export abstract class PuppeteerInformationCrawler extends InformationCrawler {
 
   async initBrowser() {
     this.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     if (!this.browser) {
       throw new NoBrowserDefined();
     }
-    this.setPuppeteerPage = await this.browser.newPage();
+    // TODO set user agent for headless
+    // this.setPuppeteerPage = await this.browser.newPage();
+    const puppeteerPage = await this.browser.newPage();
+    // await puppeteerPage.setCacheEnabled(false);
+    this.setPuppeteerPage = puppeteerPage;
+    await this.page.setUserAgent(
+      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    );
     if (!this.puppeteerPage) {
       await this.browser.close();
       throw new NoPageOpened();

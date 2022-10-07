@@ -35,7 +35,6 @@ export class SocieteComProvider extends InformationProvider<CompanyInformation> 
     );
 
     await this.crawler.closeBrowser();
-
     return companyInformations;
   }
 }
