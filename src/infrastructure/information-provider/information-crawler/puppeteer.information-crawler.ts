@@ -82,7 +82,7 @@ export class PuppeteerInformationCrawler {
 
   async initBrowser() {
     this.browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
     });
     if (!this.browser) {
       throw new NoBrowserDefined();

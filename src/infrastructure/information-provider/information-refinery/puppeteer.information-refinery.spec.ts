@@ -1,10 +1,4 @@
-// htmlMarkupAttribute: string;
-// selector: string;
-// property: string;
-// rawValue: string;
-
 import { InformationRefinery } from '../../../application/interface/information-provider/information-refinery/information-refinery.interface';
-import { FakeInformationRefinery } from './fake.information-refinery';
 import { PuppeteerInformationRefinery } from './puppeteer.information-refinery';
 
 describe('Fake refinery implementation', () => {
