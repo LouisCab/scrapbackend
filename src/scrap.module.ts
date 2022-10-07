@@ -1,7 +1,7 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ScrapCompanyHttpController } from './infrastructure/get-company-informations/get-company-informations.controller';
-import { GetCompanyInformationsService } from './infrastructure/get-company-informations/get-company-informations.service';
+import { GetCompanyInformationsController } from './infrastructure/get-company-informations/get-company-informations.controller';
+import { GetCompanyInformationsService } from './application/services/get-company-informations.service';
 import { LinkedinInformationCrawler } from './infrastructure/information-crawler/linkedin.information-crawler';
 import { SocieteComInformationCrawler } from './infrastructure/information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './infrastructure/information-provider/information-extractor/puppeter.information-extractor';
@@ -95,7 +95,7 @@ const getCompanyInformationsService: FactoryProvider = {
       envFilePath: ['.env.local', '.env.development'],
     }),
   ],
-  controllers: [ScrapCompanyHttpController],
+  controllers: [GetCompanyInformationsController],
   providers: [
     ...crawlers,
     ...refineries,

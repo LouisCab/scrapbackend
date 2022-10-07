@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InformationProvider } from '../../application/interface/information-provider/information-provider.interface';
+import { InformationProvider } from '../interface/information-provider/information-provider.interface';
 
 import { Company, CompanyInformation } from '../../domain/company';
 

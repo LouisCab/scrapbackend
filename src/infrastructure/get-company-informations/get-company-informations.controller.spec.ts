@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ScrapCompanyHttpController } from './get-company-informations.controller';
-import { GetCompanyInformationsService } from './get-company-informations.service';
+import { GetCompanyInformationsController } from './get-company-informations.controller';
+
 import { FactoryProvider } from '@nestjs/common';
 import { LinkedinProvider } from '../information-provider/linkedin.information-provider';
 import { SocieteComProvider } from '../information-provider/societe-com.information-provider';
@@ -8,11 +8,12 @@ import { LinkedinInformationCrawler } from '../information-crawler/linkedin.info
 import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from '../information-provider/information-extractor/puppeter.information-extractor';
 import { PuppeteerInformationRefinery } from '../information-provider/information-refinery/puppeteer-information-refinery';
+import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
 
 describe('AppController', () => {
   jest.setTimeout(60000);
   let app: TestingModule;
-  let scrapController: ScrapCompanyHttpController;
+  let scrapController: GetCompanyInformationsController;
 
   const crawlers = [
     {
@@ -100,7 +101,7 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     app = await Test.createTestingModule({
-      controllers: [ScrapCompanyHttpController],
+      controllers: [GetCompanyInformationsController],
       providers: [
         ...crawlers,
         ...refineries,
@@ -112,8 +113,8 @@ describe('AppController', () => {
       ],
     }).compile();
 
-    scrapController = app.get<ScrapCompanyHttpController>(
-      ScrapCompanyHttpController,
+    scrapController = app.get<GetCompanyInformationsController>(
+      GetCompanyInformationsController,
     );
   });
 

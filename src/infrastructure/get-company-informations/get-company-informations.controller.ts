@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Company } from '../../domain/company';
-import { GetCompanyInformationsService } from './get-company-informations.service';
+import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
 
 @Controller('company')
-export class ScrapCompanyHttpController {
+export class GetCompanyInformationsController {
   constructor(private readonly scrapService: GetCompanyInformationsService) {}
 
   @Post('/getCompanyInformations')
