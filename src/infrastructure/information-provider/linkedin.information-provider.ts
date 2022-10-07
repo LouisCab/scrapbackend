@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InformationProvider } from '../../application/interface/information-provider/information-provider.interface';
+import { InformationProvider } from '../../application/interface/information-provider/information-provider.abstract';
 import { constants } from '../../constants';
 import { CompanyInformation } from '../../domain/company';
-import { LinkedinInformationCrawler } from '../information-crawler/linkedin.information-crawler';
+import { LinkedinInformationCrawler } from './information-crawler/linkedin.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
 import { linkedinInformationReferential } from './information-referential/linkedin.information-referential';
-import { PuppeteerInformationRefinery } from './information-refinery/puppeteer-information-refinery';
+import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
 
 @Injectable()
 export class LinkedinProvider extends InformationProvider<CompanyInformation> {

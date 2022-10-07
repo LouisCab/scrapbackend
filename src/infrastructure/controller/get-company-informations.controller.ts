@@ -10,9 +10,4 @@ export class GetCompanyInformationsController {
   async getCompanyInformations(@Body() req: any): Promise<Company> {
     return await this.scrapService.getInformationsForCompany(req.companyName);
   }
-
-  @Get('/hello')
-  getHello() {
-    return this.scrapService.getHello();
-  }
 }

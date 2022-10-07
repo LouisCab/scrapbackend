@@ -1,8 +1,8 @@
-import { NoResultForInput } from '../information-crawler/information-crawler';
-import { LinkedinInformationCrawler } from '../information-crawler/linkedin.information-crawler';
-import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
+import { LinkedinInformationCrawler } from './information-crawler/linkedin.information-crawler';
+import { NoResultForInput } from './information-crawler/puppeteer.information-crawler';
+import { SocieteComInformationCrawler } from './information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
-import { PuppeteerInformationRefinery } from './information-refinery/puppeteer-information-refinery';
+import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
 import { LinkedinProvider } from './linkedin.information-provider';
 
 let provider: LinkedinProvider;

@@ -1,5 +1,6 @@
 import * as puppeteer from 'puppeteer';
-import { CompanyInformation } from '../../domain/company';
+import { CompanyInformation } from '../../../domain/company';
+import { InformationCrawler } from '../../../application/interface/information-provider/information-crawler/information-crawler.abstract';
 
 export class InfrastructureError extends Error {
   constructor(message: string) {
@@ -59,7 +60,7 @@ export class ExtractingContentFailure extends InfrastructureError {
     super(message);
   }
 }
-export abstract class InformationCrawler {
+export abstract class PuppeteerInformationCrawler extends InformationCrawler {
   private browser: puppeteer.Browser;
   protected page: puppeteer.Page;
   private elements: Promise<string>;

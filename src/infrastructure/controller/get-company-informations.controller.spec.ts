@@ -1,14 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { GetCompanyInformationsController } from './get-company-informations.controller';
-
 import { FactoryProvider } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
+import { LinkedinInformationCrawler } from '../information-provider/information-crawler/linkedin.information-crawler';
+import { SocieteComInformationCrawler } from '../information-provider/information-crawler/societe-com.information-crawler';
+import { PuppeteerInformationExtractor } from '../information-provider/information-extractor/puppeter.information-extractor';
+import { PuppeteerInformationRefinery } from '../information-provider/information-refinery/puppeteer.information-refinery';
 import { LinkedinProvider } from '../information-provider/linkedin.information-provider';
 import { SocieteComProvider } from '../information-provider/societe-com.information-provider';
-import { LinkedinInformationCrawler } from '../information-crawler/linkedin.information-crawler';
-import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
-import { PuppeteerInformationExtractor } from '../information-provider/information-extractor/puppeter.information-extractor';
-import { PuppeteerInformationRefinery } from '../information-provider/information-refinery/puppeteer-information-refinery';
-import { GetCompanyInformationsService } from '../../application/services/get-company-informations.service';
+import { GetCompanyInformationsController } from './get-company-informations.controller';
 
 describe('AppController', () => {
   jest.setTimeout(60000);

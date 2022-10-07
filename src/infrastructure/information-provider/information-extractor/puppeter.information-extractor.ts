@@ -3,10 +3,10 @@ import {
   InformationReferentialDefinition,
   InformationRubricValueDefinition,
 } from '../../../application/interface/information-provider/information-extractor/information-extractor.interface';
-import { InformationCrawler } from '../../information-crawler/information-crawler';
+import { PuppeteerInformationCrawler } from '../information-crawler/puppeteer.information-crawler';
 
 export class PuppeteerInformationExtractor implements InformationExtractor {
-  constructor(private readonly crawler: InformationCrawler) {}
+  constructor(private readonly crawler: PuppeteerInformationCrawler) {}
   async extractRawData(
     referentialValues: InformationReferentialDefinition,
   ): Promise<InformationRubricValueDefinition> {

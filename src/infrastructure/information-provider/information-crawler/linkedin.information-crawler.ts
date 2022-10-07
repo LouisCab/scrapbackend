@@ -1,12 +1,12 @@
-import { CompanyInformation } from '../../domain/company';
+import { CompanyInformation } from '../../../domain/company';
 import {
-  InformationCrawler,
+  PuppeteerInformationCrawler,
   ElementNotFoundError,
   ContentIsEmptyError,
   ExtractingContentFailure,
-} from './information-crawler';
+} from './puppeteer.information-crawler';
 
-export class LinkedinInformationCrawler extends InformationCrawler {
+export class LinkedinInformationCrawler extends PuppeteerInformationCrawler {
   async extractCompanyInformations(
     key: string,
     selector: string,

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InformationProvider } from '../interface/information-provider/information-provider.interface';
+import { InformationProvider } from '../interface/information-provider/information-provider.abstract';
 
 import { Company, CompanyInformation } from '../../domain/company';
 
@@ -25,9 +25,5 @@ export class GetCompanyInformationsService {
       }
     }
     return company;
-  }
-
-  getHello(): string {
-    return 'hello world';
   }
 }

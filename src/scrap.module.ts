@@ -1,11 +1,11 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { GetCompanyInformationsController } from './infrastructure/get-company-informations/get-company-informations.controller';
+import { GetCompanyInformationsController } from './infrastructure/controller/get-company-informations.controller';
 import { GetCompanyInformationsService } from './application/services/get-company-informations.service';
-import { LinkedinInformationCrawler } from './infrastructure/information-crawler/linkedin.information-crawler';
-import { SocieteComInformationCrawler } from './infrastructure/information-crawler/societe-com.information-crawler';
+import { LinkedinInformationCrawler } from './infrastructure/information-provider/information-crawler/linkedin.information-crawler';
+import { SocieteComInformationCrawler } from './infrastructure/information-provider/information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './infrastructure/information-provider/information-extractor/puppeter.information-extractor';
-import { PuppeteerInformationRefinery } from './infrastructure/information-provider/information-refinery/puppeteer-information-refinery';
+import { PuppeteerInformationRefinery } from './infrastructure/information-provider/information-refinery/puppeteer.information-refinery';
 import { LinkedinProvider } from './infrastructure/information-provider/linkedin.information-provider';
 import { SocieteComProvider } from './infrastructure/information-provider/societe-com.information-provider';
 

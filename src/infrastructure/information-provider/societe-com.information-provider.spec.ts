@@ -1,7 +1,7 @@
-import { NoResultForInput } from '../information-crawler/information-crawler';
-import { SocieteComInformationCrawler } from '../information-crawler/societe-com.information-crawler';
+import { NoResultForInput } from './information-crawler/puppeteer.information-crawler';
+import { SocieteComInformationCrawler } from './information-crawler/societe-com.information-crawler';
 import { PuppeteerInformationExtractor } from './information-extractor/puppeter.information-extractor';
-import { PuppeteerInformationRefinery } from './information-refinery/puppeteer-information-refinery';
+import { PuppeteerInformationRefinery } from './information-refinery/puppeteer.information-refinery';
 import { SocieteComProvider } from './societe-com.information-provider';
 
 describe('Societe.com crawler', () => {
