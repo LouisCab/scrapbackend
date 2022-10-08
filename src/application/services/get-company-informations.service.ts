@@ -3,6 +3,18 @@ import { InformationProvider } from '../interface/information-provider/informati
 
 import { Company, CompanyInformation } from '../../domain/company';
 
+class ApplicativeError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+class NoCompanyInformationExtracted extends ApplicativeError {
+  constructor(companyName: string) {
+    super(`Could not retrieve information for ${companyName}. `);
+  }
+}
+
 @Injectable()
 export class GetCompanyInformationsService {
   constructor(
@@ -19,6 +31,10 @@ export class GetCompanyInformationsService {
       for (const information of elements) {
         company.add(information);
       }
+    }
+
+    if (Object.entries(company.companyInformations).length === 0) {
+      throw new NoCompanyInformationExtracted(companyName);
     }
     return company;
   }

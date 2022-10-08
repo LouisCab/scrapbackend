@@ -8,7 +8,7 @@ import { LinkedinProvider } from '../information-provider/linkedin.information-p
 import { SocieteComProvider } from '../information-provider/societe-com.information-provider';
 import { GetCompanyInformationsController } from './get-company-informations.controller';
 
-describe('AppController', () => {
+describe('company /getCompanyInformations', () => {
   jest.setTimeout(60000);
   let app: TestingModule;
   let controller: GetCompanyInformationsController;

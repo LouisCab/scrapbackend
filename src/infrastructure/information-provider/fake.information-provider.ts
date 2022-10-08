@@ -8,8 +8,8 @@ export class CompanyNotFound extends InfrastructureError {
 }
 export class FakeInformationProvider extends InformationProvider<CompanyInformation> {
   private informations = new Map<string, CompanyInformation[]>();
-  setInformation(companyName: string, informations: CompanyInformation[]) {
-    this.informations.set(companyName, informations);
+  set setInformation(companyName: string) {
+    this.informations.set(companyName, [{ creationDate: 'test' }]);
   }
 
   async getElementsCompanyInfomations(
